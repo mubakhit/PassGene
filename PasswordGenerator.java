@@ -88,7 +88,7 @@ public class PasswordGenerator extends JFrame implements ActionListener {
         String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
         String numbers = "0123456789";
-        String symbols = "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/";
+        String symbols = "!@#$%&()_-+=?";
 
         String allCharacters = uppercaseLetters + lowercaseLetters + numbers + symbols;
         StringBuilder passwordBuilder = new StringBuilder();
