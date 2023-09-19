@@ -1,16 +1,29 @@
-# PassGene
+# PassGene - Random Password Generator
 
-Simple UI Java program to generate a random passwords
+PassGene is a simple Java application designed to generate random passwords with ease. It provides a user-friendly graphical interface for generating passwords of varying lengths. Whether you need a secure password for your online accounts or just want to create a random passphrase, PassGene has you covered.
 
-To download the executable JAR File: <a href="https://github.com/mubakhit/PassGene/raw/main/JAR/PassGeneV2.jar" download>Click here</a>
+## Features
+- Generate random passwords with a click of a button.
+- Customize the length of your passwords using a slider control.
+- Copy generated passwords to your clipboard for quick and easy use.
+- User-friendly graphical interface.
 
-Note!
+## Prerequisites
+Before using PassGene, ensure you have the following prerequisites installed:
+- Java JDK 14 or higher.
 
-You should have at least Java JDK 14 to run the code or to execute the JAR file.
+You can download Java JDK from [here](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html).
 
-<a href="https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html" download>To download java click here</a>
+## Installation
+To run PassGene, download the executable JAR file from the following link: [PassGeneV2.jar](https://github.com/mubakhit/PassGene/raw/main/JAR/PassGeneV2.jar).
 
-Screenshots
+## Screenshots
 
 <img src="icons - screenshots/Screenshot_2.png" alt="Alt Text">
 <img src="icons - screenshots/Screenshot_3.png" alt="Alt Text">
+
+## Usage
+1. Launch PassGene by double-clicking the JAR file.
+2. Use the "Generate" button to create a random password.
+3. Adjust the password length using the slider control.
+4. Click the "Copy to Clipboard" button to copy the generated password for use.
