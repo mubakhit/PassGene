@@ -1,0 +1,15 @@
+# Build artifacts
+src-tauri/target/
+
+# Node
+node_modules/
+
+# Claude Code
+.claude/
+
+# SVG source files (icons already generated)
+*.svg
+
+# OS files
+Thumbs.db
+.DS_Store

@@ -1,29 +1,36 @@
-# PassGene - Random Password Generator
+# PassGene v2 - Password & Passphrase Generator
 
-PassGene is a simple Java application designed to generate random passwords with ease. It provides a user-friendly graphical interface for generating passwords of varying lengths. Whether you need a secure password for your online accounts or just want to create a random passphrase, PassGene has you covered.
+PassGene v2 is a complete rewrite of the original [PassGene](https://github.com/mubakhit/PassGene) Java application. Rebuilt using Tauri (Rust + HTML/CSS/JS) — a modern, lightweight native app with no runtime dependencies.
 
 ## Features
-- Generate random passwords with a click of a button.
-- Customize the length of your passwords using a slider control.
-- Copy generated passwords to your clipboard for quick and easy use.
-- User-friendly graphical interface.
 
-## Prerequisites
-Before using PassGene, ensure you have the following prerequisites installed:
-- Java JDK 14 or higher.
-
-You can download Java JDK from [here](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html).
+- Password & passphrase generation with configurable length
+- Toggle character types (uppercase, lowercase, numbers, symbols) and custom symbol sets
+- Batch generation (up to 10 at once)
+- Strength indicator with visual feedback
+- Password history with one-click copy
+- Dark & light themes
+- Cryptographically secure randomness
+- Standalone `.exe` — no Java, Python, or Node needed
 
 ## Installation
-To run PassGene, download the executable JAR file from the following link: [PassGeneV2.jar](https://github.com/mubakhit/PassGene/raw/main/JAR/PassGeneV2.jar).
 
-## Screenshots
+Download the latest installer from the [Releases](https://github.com/mubakhit/PassGene/releases) page, or grab the standalone `PassGene.exe`.
 
-<img src="icons - screenshots/Screenshot_2.png" alt="Alt Text">
-<img src="icons - screenshots/Screenshot_3.png" alt="Alt Text">
+## Building from Source
 
-## Usage
-1. Launch PassGene by double-clicking the JAR file.
-2. Use the "Generate" button to create a random password.
-3. Adjust the password length using the slider control.
-4. Click the "Copy to Clipboard" button to copy the generated password for use.
+Requires [Rust](https://rustup.rs/) and [Tauri CLI](https://tauri.app/) (`cargo install tauri-cli@^2`).
+
+```bash
+cd src-tauri
+cargo tauri dev      # development mode
+cargo tauri build    # production build
+```
+
+## Author
+
+**Muhammad Bakhit** — [GitHub](https://github.com/mubakhit)
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
