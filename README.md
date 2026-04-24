@@ -13,6 +13,11 @@ PassGene v2 is a complete rewrite of the original [PassGene](https://github.com/
 - Cryptographically secure randomness
 - Standalone `.exe` — no Java, Python, or Node needed
 
+## Screenshots
+
+<img src="./Screenshots/Darkmode.png" alt="DarkMode" width="45%" />
+<img src="./Screenshots/Lightmode.png" alt="LightMode" width="45%" />
+
 ## Installation
 
 Download the latest installer from the [Releases](https://github.com/mubakhit/PassGene/releases) page, or grab the standalone `PassGene.exe`.
