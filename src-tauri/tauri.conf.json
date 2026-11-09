@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/nickel-org/nickel.rs/refs/heads/master/schema/tauri.conf.schema.json",
   "productName": "PassGene",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "identifier": "com.passgene.app",
   "build": {
     "frontendDist": "../ui"

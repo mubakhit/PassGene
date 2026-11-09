@@ -220,12 +220,29 @@ fn build_charset(options: &PasswordOptions) -> String {
     charset
 }
 
-fn generate_single_password(charset: &str, length: usize) -> String {
+fn generate_single_password(options: &PasswordOptions, charset: &str, length: usize) -> String {
     let mut rng = rand::thread_rng();
-    let chars: Vec<char> = charset.chars().collect();
-    (0..length)
-        .map(|_| chars[rng.gen_range(0..chars.len())])
-        .collect()
+    let all: Vec<char> = charset.chars().collect();
+
+    let mut required: Vec<&str> = Vec::new();
+    if options.uppercase { required.push(UPPERCASE); }
+    if options.lowercase { required.push(LOWERCASE); }
+    if options.numbers   { required.push(DIGITS); }
+    if options.symbols {
+        let s = options.custom_symbols.as_deref().filter(|s| !s.is_empty()).unwrap_or(SYMBOLS);
+        required.push(s);
+    }
+
+    let mut pwd: Vec<char> = required.iter()
+        .map(|set| { let c: Vec<char> = set.chars().collect(); c[rng.gen_range(0..c.len())] })
+        .collect();
+
+    while pwd.len() < length {
+        pwd.push(all[rng.gen_range(0..all.len())]);
+    }
+    pwd.shuffle(&mut rng);
+    pwd.truncate(length.max(required.len()));
+    pwd.into_iter().collect()
 }
 
 fn calculate_entropy(pool_size: usize, length: usize) -> f64 {
@@ -235,18 +252,61 @@ fn calculate_entropy(pool_size: usize, length: usize) -> f64 {
     length as f64 * (pool_size as f64).log2()
 }
 
+
+// Crazy Stuff
 fn evaluate_strength(entropy: f64) -> (String, u8) {
-    if entropy < 30.0 {
-        ("Too easy to guess!".to_string(), 1)
-    } else if entropy < 50.0 {
-        ("Not strong enough".to_string(), 2)
-    } else if entropy < 70.0 {
-        ("Getting there...".to_string(), 3)
-    } else if entropy < 90.0 {
-        ("Now we're talking!".to_string(), 4)
-    } else {
-        ("You're crazy!".to_string(), 5)
-    }
+    let (score, messages): (u8, &[&str]) = match entropy {
+        e if e < 30.0 => (1, &[
+            "Too easy to guess!",
+            "My grandma could crack this.",
+            "Is this a password or a hint?",
+            "Hackers say thank you.",
+            "This is basically \"123456\" with extra steps.",
+            "A toaster could brute-force this.",
+        ]),
+        e if e < 50.0 => (2, &[
+            "Not strong enough",
+            "Meh. Try harder.",
+            "It's trying its best...",
+            "Better than nothing, barely.",
+            "A determined teenager could crack this.",
+            "Add some spice!",
+        ]),
+        e if e < 70.0 => (3, &[
+            "Getting there...",
+            "Not bad, not great.",
+            "Respectable. Mildly.",
+            "Your password has potential.",
+            "Halfway to greatness.",
+            "Decent, but don't get cocky.",
+        ]),
+        e if e < 90.0 => (4, &[
+            "Now we're talking!",
+            "Solid. Hackers are sweating.",
+            "That's a strong one!",
+            "Brute force? Good luck with that.",
+            "Your password goes to the gym.",
+            "Strong enough to guard a vault.",
+        ]),
+        e if e < 128.0 => (5, &[
+            "You're crazy!",
+            "Absolute unit of a password.",
+            "The NSA just sighed.",
+            "Even you won't remember this.",
+            "Fort Knox called, it wants tips.",
+            "Hackers have left the chat.",
+        ]),
+        _ => (5, &[
+            "Beyond crazy. Heat death of the universe first.",
+            "Quantum computers are crying.",
+            "This password has its own gravity.",
+            "Legendary. Write it down. Somewhere safe.",
+            "You've reached password enlightenment.",
+        ]),
+    };
+
+    let msg = messages.choose(&mut rand::thread_rng()).unwrap_or(&"Unknown");
+    (msg.to_string(), score)
 }
 
 #[tauri::command]
@@ -257,7 +317,7 @@ fn generate_passwords(options: PasswordOptions) -> GenerateResult {
     let (level, score) = evaluate_strength(entropy);
 
     let passwords: Vec<String> = (0..options.count)
-        .map(|_| generate_single_password(&charset, options.length))
+        .map(|_| generate_single_password(&options, &charset, options.length))
         .collect();
 
     GenerateResult {
